@@ -1,10 +1,16 @@
 package com.music.exercise.controller;
 
 import com.music.exercise.model.Artist;
+import com.music.exercise.service.ArtistService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +18,24 @@ import java.util.List;
 @RequestMapping(value= "/artist")
 public class ArtistController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Artist> getAll(){
-        Artist artist1 = new Artist(1L,"Vando", "Brasil");
-        Artist artist2 = new Artist(2L, "Guns", "EUA");
 
-        List <Artist> artists = new ArrayList<>();
+    private ArtistService artistService;
 
-        artists.add(artist1);
-        artists.add(artist2);
+    public ArtistController(ArtistService artistService) {
+        this.artistService = artistService;
+    }
 
-        return artists;
+    @RequestMapping(method = RequestMethod.POST)
+
+    public ResponseEntity<Void> insert(@Valid @RequestBody Artist artist){
+        artist = artistService.saveArtist(artist);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(artist.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
 
     }
+
 
 }
