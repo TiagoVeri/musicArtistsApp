@@ -3,15 +3,11 @@ package com.music.exercise.controller;
 import com.music.exercise.model.Artist;
 import com.music.exercise.service.ArtistService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,8 +21,14 @@ public class ArtistController {
         this.artistService = artistService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Artist> find(@PathVariable(value = "id") Long Id){
+        Artist obj = artistService.findById(Id);
 
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody Artist artist){
         artist = artistService.saveArtist(artist);
 
@@ -37,5 +39,10 @@ public class ArtistController {
 
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Artist>> findAll(){
+        List<Artist> list = artistService.findAll();
+        return  ResponseEntity.ok().body(list);
+    }
 
 }

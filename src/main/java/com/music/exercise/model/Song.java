@@ -1,9 +1,11 @@
 package com.music.exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,10 +21,23 @@ public class Song implements Serializable {
     private Integer duration;
 
     @ManyToMany
-    private List<Artist> artists;
+    @JoinTable(name= "ARTIST_SONG",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id")
+    )
+    private List<Artist> artists = new ArrayList<>();
 
-    @ManyToMany
-    private List<Album> albums;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "songs")
+    private List<Album> albums = new ArrayList<>();
 
+    public Song() {
+    }
+
+    public Song(Long id, String name, Integer duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
 }

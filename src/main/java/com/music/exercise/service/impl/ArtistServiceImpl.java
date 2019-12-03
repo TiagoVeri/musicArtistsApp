@@ -5,6 +5,9 @@ import com.music.exercise.repository.ArtistRepository;
 import com.music.exercise.service.ArtistService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ArtistServiceImpl implements ArtistService {
 
@@ -14,9 +17,19 @@ public class ArtistServiceImpl implements ArtistService {
         this.artistRepository = artistRepository;
     }
 
+    public Artist findById(Long id){
+        Optional<Artist> obj = artistRepository.findById(id);
+
+        return obj.orElse(null);
+    }
     @Override
     public Artist saveArtist(Artist artist) {
         artist.setId(null);
         return artistRepository.save(artist);
+    }
+
+    @Override
+    public List<Artist> findAll() {
+        return artistRepository.findAll();
     }
 }

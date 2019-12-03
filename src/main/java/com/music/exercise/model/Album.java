@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,10 +20,26 @@ public class Album implements Serializable {
     private Integer year;
 
     @ManyToMany
-    private List<Song> songs;
+    @JoinTable(name= "ALBUM_SONG",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id")
+    )
+    private List<Song> songs = new ArrayList<>();
 
     @ManyToMany
-    private List<Artist> artists;
+    @JoinTable(name= "ARTIST_ALBUM",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id")
+    )
+    private List<Artist> artists = new ArrayList<>();
 
 
+    public Album() {
+    }
+
+    public Album(Long id, String name, Integer year) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+    }
 }
