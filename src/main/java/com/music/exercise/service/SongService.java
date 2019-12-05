@@ -12,4 +12,6 @@ public interface SongService {
     Song findSongById(Long id);
 
     List <Song> findAll();
+
+   void deleteSongById (Long id);
 }

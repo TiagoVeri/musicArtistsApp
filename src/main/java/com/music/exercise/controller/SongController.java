@@ -46,4 +46,11 @@ public class SongController {
         return  ResponseEntity.ok().body(list);
     }
 
+    @RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete (@PathVariable (value = "id") Long id){
+
+        songService.deleteSongById(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

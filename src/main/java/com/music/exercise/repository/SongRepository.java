@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface SongRepository extends JpaRepository<Song, Long> {
 
 
-
-
 }

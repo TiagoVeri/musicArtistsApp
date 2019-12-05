@@ -35,5 +35,12 @@ public class SongServiceImpl implements SongService {
         return songRepository.findAll();
     }
 
+    @Override
+    public void deleteSongById(Long id)   {
+        findSongById(id);
+
+        songRepository.deleteById(id);
+    }
+
 
 }
