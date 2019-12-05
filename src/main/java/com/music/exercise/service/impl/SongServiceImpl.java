@@ -42,5 +42,14 @@ public class SongServiceImpl implements SongService {
         songRepository.deleteById(id);
     }
 
+    @Override
+    public Song updateSong(Song song) {
+       Song savedSong = findSongById(song.getId());
+       savedSong.setName(song.getName());
+       savedSong.setDuration(song.getDuration());
+
+        return songRepository.save(savedSong);
+    }
+
 
 }

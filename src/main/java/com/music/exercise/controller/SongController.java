@@ -53,4 +53,13 @@ public class SongController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update (@Valid @RequestBody Song song, @PathVariable(value = "id") Long id){
+        song.setId(id);
+        songService.updateSong(song);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
