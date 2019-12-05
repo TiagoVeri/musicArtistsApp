@@ -14,4 +14,6 @@ public interface AlbumService {
 
     void deleteAlbum (Long id);
 
+    Album updateAlbum (Album album);
+
 }

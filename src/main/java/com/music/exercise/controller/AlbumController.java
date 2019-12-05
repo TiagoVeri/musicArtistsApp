@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.net.URI;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class AlbumController {
 
     }
 
-    @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody Album album){
         album = albumService.saveAlbum(album);
 
@@ -48,6 +49,14 @@ public class AlbumController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete (@PathVariable (value = "id") Long id){
         albumService.deleteAlbum(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Album> update(@Valid @RequestBody Album album, @PathVariable (value = "id") Long id){
+        album.setId(id);
+        albumService.updateAlbum(album);
 
         return ResponseEntity.noContent().build();
     }

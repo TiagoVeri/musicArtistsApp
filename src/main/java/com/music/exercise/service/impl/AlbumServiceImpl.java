@@ -42,4 +42,13 @@ public class AlbumServiceImpl implements AlbumService {
       albumRepository.deleteById(id);
 
     }
+
+    @Override
+    public Album updateAlbum(Album album) {
+        Album oldAlbum = findAlbumById(album.getId());
+        oldAlbum.setName(album.getName());
+        oldAlbum.setYear(album.getYear());
+
+        return albumRepository.save(oldAlbum);
+    }
 }
