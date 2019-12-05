@@ -17,11 +17,27 @@ public class ArtistServiceImpl implements ArtistService {
         this.artistRepository = artistRepository;
     }
 
-    public Artist findById(Long id){
+    public Artist findArtistById(Long id){
         Optional<Artist> obj = artistRepository.findById(id);
 
         return obj.orElse(null);
     }
+
+    @Override
+    public void deleteArtistById(Long id) {
+        Artist obj = findArtistById(id);
+        artistRepository.delete(obj);
+    }
+
+    @Override
+    public Artist updateArtist(Artist artist) {
+        Artist oldArtist = findArtistById(artist.getId());
+        oldArtist.setName(artist.getName());
+        oldArtist.setNationality(artist.getNationality());
+
+        return artistRepository.save(oldArtist);
+    }
+
     @Override
     public Artist saveArtist(Artist artist) {
         artist.setId(null);

@@ -12,4 +12,6 @@ public interface AlbumService {
 
     List<Album> findAll();
 
+    void deleteAlbum (Long id);
+
 }

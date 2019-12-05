@@ -2,7 +2,6 @@ package com.music.exercise.controller;
 
 import com.music.exercise.model.Album;
 import com.music.exercise.service.AlbumService;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,5 +45,11 @@ public class AlbumController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete (@PathVariable (value = "id") Long id){
+        albumService.deleteAlbum(id);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

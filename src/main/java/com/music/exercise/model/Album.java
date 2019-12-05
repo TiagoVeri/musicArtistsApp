@@ -14,6 +14,7 @@ public class Album implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "id")
     private Long id;
 
     private String name;
@@ -28,8 +29,8 @@ public class Album implements Serializable {
 
     @ManyToMany
     @JoinTable(name= "ARTIST_ALBUM",
-            joinColumns = @JoinColumn(name = "artist_id"),
-            inverseJoinColumns = @JoinColumn(name = "album_id")
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
     private List<Artist> artists = new ArrayList<>();
 

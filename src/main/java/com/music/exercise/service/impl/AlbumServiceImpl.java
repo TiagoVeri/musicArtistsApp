@@ -1,8 +1,10 @@
 package com.music.exercise.service.impl;
 
 import com.music.exercise.model.Album;
+import com.music.exercise.model.Artist;
 import com.music.exercise.repository.AlbumRepository;
 import com.music.exercise.service.AlbumService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +34,12 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> findAll() {
         return albumRepository.findAll();
+    }
+
+    @Override
+    public void deleteAlbum(Long id) {
+      Album album = findAlbumById(id);
+      albumRepository.deleteById(id);
+
     }
 }

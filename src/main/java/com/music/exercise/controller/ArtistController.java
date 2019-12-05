@@ -23,7 +23,7 @@ public class ArtistController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Artist> find(@PathVariable(value = "id") Long Id){
-        Artist obj = artistService.findById(Id);
+        Artist obj = artistService.findArtistById(Id);
 
         return ResponseEntity.ok().body(obj);
     }
@@ -45,4 +45,19 @@ public class ArtistController {
         return  ResponseEntity.ok().body(list);
     }
 
+    //Só deleta artista sem album ou música.
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete (@PathVariable(value = "id") Long id){
+        artistService.deleteArtistById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Artist> update(@Valid @RequestBody Artist artist, @PathVariable (value = "id") Long id){
+        artist.setId(id);
+        artistService.updateArtist(artist);
+
+        return ResponseEntity.noContent().build();
+    }
 }
