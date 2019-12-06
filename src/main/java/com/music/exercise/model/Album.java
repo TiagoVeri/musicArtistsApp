@@ -1,5 +1,6 @@
 package com.music.exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,12 +21,14 @@ public class Album implements Serializable {
     private String name;
     private Integer year;
 
+
     @ManyToMany
     @JoinTable(name= "ALBUM_SONG",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id")
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id")
     )
     private List<Song> songs = new ArrayList<>();
+
 
     @ManyToMany
     @JoinTable(name= "ARTIST_ALBUM",
@@ -42,5 +45,12 @@ public class Album implements Serializable {
         this.id = id;
         this.name = name;
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                '}';
     }
 }

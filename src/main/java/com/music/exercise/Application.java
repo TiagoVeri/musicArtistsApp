@@ -46,24 +46,33 @@ public class Application implements CommandLineRunner {
 		Song m4 = new Song (null, "We Are the World", 390);
 
 		a1.getAlbums().addAll(Arrays.asList(alb1, alb2, alb3));
+		a1.getSongs().addAll(Arrays.asList(m1, m2, m3, m4));
 		a2.getAlbums().addAll(Arrays.asList(alb3));
+		a2.getSongs().addAll(Arrays.asList(m4));
 
 		alb1.getArtists().addAll(Arrays.asList(a1));
-		alb2.getArtists().addAll(Arrays.asList(a1));
-		alb3.getArtists().addAll(Arrays.asList(a1, a2));
+		alb1.getSongs().addAll(Arrays.asList(m1));
 
-		m1.getAlbums().add(alb1);
-		m1.getArtists().add(a1);
-		m2.getAlbums().add(alb2);
-		m2.getArtists().add(a1);
-		m3.getAlbums().add(alb2);
-		m3.getArtists().add(a1);
-		m4.getAlbums().add(alb3);
+		alb2.getArtists().addAll(Arrays.asList(a1));
+		alb2.getSongs().addAll(Arrays.asList(m2, m3));
+
+		alb3.getArtists().addAll(Arrays.asList(a1, a2));
+		alb3.getSongs().addAll(Arrays.asList(m4));
+
+
+		m1.getArtists().addAll(Arrays.asList(a1));
+		m1.getAlbums().addAll(Arrays.asList(alb1));
+		m2.getArtists().addAll(Arrays.asList(a1));
+		m2.getAlbums().addAll(Arrays.asList(alb2));
+
+		m3.getArtists().addAll(Arrays.asList(a1));
+		m3.getAlbums().addAll(Arrays.asList(alb2));
+
 		m4.getArtists().addAll(Arrays.asList(a1, a2));
+		m4.getAlbums().addAll(Arrays.asList(alb3));
 
 		artistRepository.saveAll(Arrays.asList(a1, a2));
-		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3));
 		songRepository.saveAll(Arrays.asList(m1, m2, m3, m4));
-
+		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3));
 	}
 }

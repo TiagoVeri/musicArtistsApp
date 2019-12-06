@@ -3,6 +3,7 @@ package com.music.exercise.service.impl;
 import com.music.exercise.model.Artist;
 import com.music.exercise.repository.ArtistRepository;
 import com.music.exercise.service.ArtistService;
+import com.music.exercise.service.exceptions.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,9 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist findArtistById(Long id){
         Optional<Artist> obj = artistRepository.findById(id);
 
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Object not found - Id: " + id + ", Type: " + Artist.class.getName()
+        ));
     }
 
     @Override

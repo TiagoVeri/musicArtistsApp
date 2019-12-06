@@ -37,4 +37,11 @@ public class Artist implements Serializable {
         this.name = name;
         this.nationality = nationality;
     }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                '}';
+    }
 }

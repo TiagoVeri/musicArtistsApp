@@ -21,10 +21,11 @@ public class Song implements Serializable {
     private String name;
     private Integer duration;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name= "ARTIST_SONG",
-            joinColumns = @JoinColumn(name = "artist_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id")
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
     private List<Artist> artists = new ArrayList<>();
 
@@ -40,5 +41,12 @@ public class Song implements Serializable {
         this.id = id;
         this.name = name;
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                '}';
     }
 }
