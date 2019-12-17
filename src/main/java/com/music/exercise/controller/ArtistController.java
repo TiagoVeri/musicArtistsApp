@@ -1,7 +1,9 @@
 package com.music.exercise.controller;
 
+import com.music.exercise.controller.exception.ResourceReceptionHandler;
 import com.music.exercise.model.Artist;
 import com.music.exercise.service.ArtistService;
+import com.music.exercise.service.exceptions.ObjectNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,7 +12,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RestController
+@RestController @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value= "/artist")
 public class ArtistController {
 
@@ -54,7 +56,7 @@ public class ArtistController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Artist> update(@Valid @RequestBody Artist artist, @PathVariable (value = "id") Long id){
+    public ResponseEntity<Artist> update(@Valid @RequestBody Artist artist, @PathVariable (value = "id") Long id) throws ObjectNotFoundException {
         artist.setId(id);
         artistService.updateArtist(artist);
 
